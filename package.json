@@ -6,6 +6,8 @@
     "node": ">= 7.6.0"
   },
   "scripts": {
+    "add-hook": "rsync pre-commit .git/hooks && chmod 755 .git/hooks/pre-commit",
+    "postinstall": "chmod +x ./update-commit-hooks.sh && ./update-commit-hooks.sh",
     "prod": "node ./start.js",
     "watch": "nodemon ./start.js --ignore public/",
     "start": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
