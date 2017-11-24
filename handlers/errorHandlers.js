@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
 /*
   Catch Errors Handler
 
@@ -9,7 +10,6 @@
 */
 
 exports.catchErrors = fn => (req, res, next) => fn(req, res, next).catch(next);
-
 
 /*
   Not Found Error Handler
@@ -44,7 +44,7 @@ exports.flashValidationErrors = (err, req, res, next) => {
   In development we show good error messages so if we hit a syntax error
   or any other previously un-handled error, we can show good info on what happened
 */
-exports.developmentErrors = (err, req, res) => {
+exports.developmentErrors = (err, req, res, next) => {
   err.stack = err.stack || '';
   const errorDetails = {
     message: err.message,
@@ -67,7 +67,7 @@ exports.developmentErrors = (err, req, res) => {
 
   No stacktraces are leaked to user
 */
-exports.productionErrors = (err, req, res) => {
+exports.productionErrors = (err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
