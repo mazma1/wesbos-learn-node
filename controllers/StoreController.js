@@ -22,6 +22,25 @@ const StoreController = {
   async getStores(req, res) {
     const stores = await Store.find();
     res.render('stores', { title: 'Stores', stores });
+  },
+
+  async editStore(req, res) {
+    const store = await Store.findOne({ _id: req.params.id });
+    res.render('editStore', { title: `Edit ${store.name}`, store });
+  },
+
+  async updateStore(req, res) {
+    const store = await Store.findOneAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true, runValidator: true }
+    ).exec();
+    req.flash(
+      'success',
+      `Successfully updated <strong>${store.name}</strong>.
+      <a href="/stores/${store.slug}">View Store</a>`
+    );
+    res.redirect(`/stores/${store._id}/edit`);
   }
 };
 
