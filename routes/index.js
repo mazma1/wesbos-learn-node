@@ -9,5 +9,7 @@ router.get('/', catchErrors(StoreCtrl.getStores));
 router.get('/stores', catchErrors(StoreCtrl.getStores));
 router.get('/add', StoreCtrl.addStore);
 router.post('/add', catchErrors(StoreCtrl.createStore));
+router.post('/add/:id', catchErrors(StoreCtrl.updateStore));
+router.get('/stores/:id/edit', catchErrors(StoreCtrl.editStore));
 
 module.exports = router;
